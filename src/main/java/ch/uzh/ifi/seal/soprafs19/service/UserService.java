@@ -39,8 +39,8 @@ public class UserService {
     public User createUser(User newUser) {
         if (userRepository.findByUsername(newUser.getUsername()) != null) throw new UserExistingException(newUser.getUsername());
         newUser.setStatus(UserStatus.OFFLINE);
-        Calendar today = Calendar.getInstance();
-        newUser.setCreationDate(today.getTime());
+        //Calendar today = Calendar.getInstance();
+        //newUser.setCreationDate(today.getTime());
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
