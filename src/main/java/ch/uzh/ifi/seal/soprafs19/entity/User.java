@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,21 +31,19 @@ public class User implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String username;
 
-	@Column(nullable = true, unique = true)
-	@JsonProperty("token")
+	@Column(nullable = false)
+	private String password;
+
+	@Column(nullable = false, unique = true)
 	private String token;
 
 	@Column(nullable = false)
 	private UserStatus status;
 
 	@Column(nullable = false)
-	@JsonProperty("password")
-	private String password;
-
-	@Column(nullable = false)
 	private Date creationDate;
 
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private Date birthDay;
 
 
