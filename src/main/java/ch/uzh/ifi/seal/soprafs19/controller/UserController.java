@@ -27,18 +27,19 @@ public class UserController {
     }
 
     @GetMapping("/users/{username}")
-    User login(@PathVariable String username, @RequestParam String password) {
+    User login(@PathVariable String username, @RequestParam String pw) {
         User user = service.getUser(username);
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && user.getPassword().equals(pw)) {
             return user;
         } else throw new AuthenticationException("wrong password for user " + username);
     }
 
     @PostMapping("/users")
     User createUser(@RequestBody User newUser) {
+        System.out.print("here");
         User user = service.getUser(newUser.getUsername());
-        if (user != null) {
-            throw new UserExistingException("User already exists");
+        if (user != null){
+            throw new UserExistingException("add User failed because username already exists");
         }
         return this.service.createUser(newUser);
     }

@@ -41,10 +41,10 @@ public class User implements Serializable {
 	private UserStatus status;
 
 	@Column(nullable = false)
-	private Date creationDate;
+	private Date creationdate;
 
 	@Column(nullable = false)
-	private Date birthDay;
+	private Date birthday;
 
 
 	public Long getId() {
@@ -91,13 +91,13 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {this.password = password;}
 
-	public void setCreationDate(Date creationDate) {this.creationDate = creationDate;}
+	public void setCreationdate(Date creationdate) {this.creationdate = creationdate;}
 
-	public Date getCreationDate() {return creationDate; }
+	public Date getCreationdate() {return creationdate; }
 
-	public Date getBirthDay(){ return birthDay; }
+	public Date getBirthday(){ return birthday; }
 
-	public void setBirthDay(Date birthDay) {this.birthDay = birthDay;}
+	public void setBirthday(Date birthday) {this.birthday = birthday;}
 
 	@Override
 	public boolean equals(Object o) {
