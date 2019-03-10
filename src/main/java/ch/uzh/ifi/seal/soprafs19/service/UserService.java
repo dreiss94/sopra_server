@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.UUID;
+import java.util.Optional;
 
 
 @Service
@@ -38,35 +39,39 @@ public class UserService {
 
     public User createUser(User newUser) {
         newUser.setToken(UUID.randomUUID().toString());
+        newUser.setCreationDate(new Date());
         newUser.setStatus(UserStatus.OFFLINE);
-        newUser.setCreationdate(new Date());
         userRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
+        System.out.println("Created Information for User: " + newUser);
         return newUser;
     }
 
-    /*
-    public String loginUser(String username, String password) {
-        User temp = this.userRepository.findByUsername(username);
-        if (temp == null) throw new UserNotFoundException(username);
-        if (temp.getPassword().equals(password)) {
-            temp.setStatus(UserStatus.ONLINE);
-            temp.setToken(UUID.randomUUID().toString());
-            log.debug("User {} logged in", username);
-            return temp.getToken();
-        }
-        else throw new PasswordNotValidException(username);
+    public User getUserByToken(String token) {
+        return this.userRepository.findByToken(token);
     }
 
-    public String logoutUser(String token) {
-        User temp = this.userRepository.findByToken(token);
-        if (temp == null) {
-            throw new AuthenticationException("token invalid");
+    public User getUserById(Long id) {
+        Optional<User> user = this.userRepository.findById(id);
+        if(user.isPresent()) {
+            return user.get();
         }
-        temp.setStatus(UserStatus.OFFLINE);
-        temp.setToken(null);
-        return "logout successful";
+        return null;
     }
-    */
+
+    public void loginUser(User user){
+        user.setStatus(UserStatus.ONLINE);
+        userRepository.save(user);
+    }
+
+    public void logoutUser(User user) {
+         user.setStatus(UserStatus.OFFLINE);
+         userRepository.save(user);
+    }
+
+    public void updateUser(User user, User newUser) {
+        user.setUsername(newUser.getUsername());
+        user.setBirthday(newUser.getBirthday());
+        userRepository.save(user);
+    }
+
 }
-

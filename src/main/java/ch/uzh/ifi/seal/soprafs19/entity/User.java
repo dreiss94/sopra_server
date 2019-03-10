@@ -16,7 +16,6 @@ import javax.persistence.Id;
 
 
 @Entity
-@JsonIgnoreProperties(value={"password", "token"}, allowSetters = true)
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,7 +40,7 @@ public class User implements Serializable {
 	private UserStatus status;
 
 	@Column(nullable = false)
-	private Date creationdate;
+	private Date creationDate;
 
 	@Column(nullable = false)
 	private Date birthday;
@@ -91,9 +90,9 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {this.password = password;}
 
-	public void setCreationdate(Date creationdate) {this.creationdate = creationdate;}
+	public void setCreationDate(Date creationDate) {this.creationDate = creationDate;}
 
-	public Date getCreationdate() {return creationdate; }
+	public Date getCreationDate() {return creationDate; }
 
 	public Date getBirthday(){ return birthday; }
 
