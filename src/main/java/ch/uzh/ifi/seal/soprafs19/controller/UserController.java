@@ -6,7 +6,6 @@ import ch.uzh.ifi.seal.soprafs19.exceptions.AuthenticationException;
 import ch.uzh.ifi.seal.soprafs19.exceptions.UserExistingException;
 import ch.uzh.ifi.seal.soprafs19.exceptions.UserNotFoundException;
 import ch.uzh.ifi.seal.soprafs19.service.UserService;
-import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,19 +69,19 @@ public class UserController {
         }
         throw new AuthenticationException("invalid token " + token);
     }
-    /*
+
     @CrossOrigin
     @PutMapping("/users/{id}")
-    RequestEntity updateUser(@RequestBody User newUser, @PathVariable long id, @RequestParam String token) {
+    ResponseEntity updateUser(@RequestBody User newUser, @PathVariable Long id, @RequestParam String token) {
         User user = service.getUserById(id);
         User tokenCheck = service.getUserByToken(token);
         if (user == null){
-            throw new UserNotFoundException("user with id: " + " was not found");
+            throw new UserNotFoundException("user with id: " + id + " was not found");
         } else if (!user.getToken().equals(tokenCheck.getToken())) {
             throw new AuthenticationException("invalid token " + token);
         }
         this.service.updateUser(user, newUser);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }*/
+    }
 }
 
