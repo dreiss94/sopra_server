@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{username}/login")
-    User login(@PathVariable String username, @RequestParam String pw) {
+    public User login(@PathVariable String username, @RequestParam String pw) {
         User user = service.getUser(username);
         if (user != null && user.getPassword().equals(pw)) {
             service.loginUser(user);
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}/logout")
-    void logout(@PathVariable Long id, @RequestParam String token) {
+    public void logout(@PathVariable Long id, @RequestParam String token) {
         User user = service.getUserById(id);
         if (user != null && user.getToken().equals(token)) {
             service.logoutUser(user);
@@ -72,12 +72,12 @@ public class UserController {
 
     @CrossOrigin
     @PutMapping("/users/{id}")
-    ResponseEntity updateUser(@RequestBody User newUser, @PathVariable Long id, @RequestParam String token) {
+    public ResponseEntity updateUser(@RequestBody User newUser, @PathVariable Long id, @RequestParam String token) {
         User user = service.getUserById(id);
         User tokenCheck = service.getUserByToken(token);
         if (user == null){
             throw new UserNotFoundException("user with id: " + id + " was not found");
-        } else if (!user.getToken().equals(tokenCheck.getToken())) {
+        } else if (!token.equals(tokenCheck.getToken())) {
             throw new AuthenticationException("invalid token " + token);
         }
         this.service.updateUser(user, newUser);
